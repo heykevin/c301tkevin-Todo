@@ -1,10 +1,10 @@
 package c301.ualberta.tkevintodo;
 //Todo class
-public class ToDo {
+public class Todo {
 	protected String todoName;
 	public Boolean archive;
 	
-	public void Todo(String todoName) {
+	public Todo(String todoName) {
 		this.todoName = todoName;
 	}
 	public void Archive(Boolean todoArchive){
@@ -15,8 +15,16 @@ public class ToDo {
 		return this.todoName;
 	}
 	
-	public Boolean getStatus(){
+	public void setValue(){
+		
+	}
+	
+	public Boolean getValue(){
 		return this.archive;
 		
 	}
+	public String toString(){
+		return getName();
+	}
+
 }
