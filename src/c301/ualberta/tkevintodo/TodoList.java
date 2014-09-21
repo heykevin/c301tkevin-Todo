@@ -27,4 +27,9 @@ public class TodoList {
 	public int size() {
 		return todoList.size();
 	}
+
+	public ToDo getTodo(int position) {
+		
+		return todoList.get(position);
+	}
 }

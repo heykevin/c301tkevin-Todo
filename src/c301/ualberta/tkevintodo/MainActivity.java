@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
@@ -31,4 +33,21 @@ public class MainActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
+	public void deleteTodoMenu(MenuItem menu){
+		Toast.makeText(this, "Deleted Todo", Toast.LENGTH_SHORT).show();
+	}
+	public void emailTodoMenu(MenuItem menu){
+		Toast.makeText(this, "Emailed Todo", Toast.LENGTH_SHORT).show();
+	}
+	public void archiveTodoMenu(MenuItem menu){
+		Toast.makeText(this, "Archived Todo", Toast.LENGTH_SHORT).show();
+	}
+	
+	public void addATodo(View v){ 
+		Toast.makeText(this,"Added Todot", Toast.LENGTH_SHORT).show();
+
+	}
+	
+	
 }
