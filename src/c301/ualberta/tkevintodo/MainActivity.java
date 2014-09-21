@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -16,7 +17,7 @@ import android.widget.Toast;
 public class MainActivity extends Activity {
 	ListView lv;
 	TodoList todoList;
-
+	ArrayAdapter<Todo> todoAdapter;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -24,8 +25,22 @@ public class MainActivity extends Activity {
 		
 		//On create - display the todos currently in the filed
 		lv = (ListView) findViewById(R.id.todolistview);
+		/*
+		//when item is tapped, toggle checked properties
+		lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			public void onItemClick(AdapterView<?> parent, View item, int position, long id){
+				Todo todo = todoAdapter.getItem(position);
+				todo.toggleChecked();
+				TodoHolder vh= (TodoHolder) item.getTag();
+				vh.getCheckBox().setChecked(todo.isChecked());
+			}
+		});*/
+		
 		Collection<Todo> todos = TodoListController.getTodoList().getList();
 		final ArrayList<Todo> list = new ArrayList<Todo>(todos);
+		
+		
+
 		final ArrayAdapter<Todo> todoAdapter = new ArrayAdapter<Todo>(this, android.R.layout.simple_list_item_1  , list);
 		lv.setAdapter(todoAdapter);
 		
