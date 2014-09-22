@@ -36,6 +36,9 @@ public final class R {
         public static final int deleteTodoItem=0x7f08000c;
         public static final int emailArchiveMenu=0x7f08000a;
         public static final int emailTodoItem=0x7f08000e;
+        public static final int printAllTest=0x7f080011;
+        public static final int printSelectedTest=0x7f080012;
+        public static final int printTestMenu=0x7f080010;
         public static final int textView1=0x7f080000;
         public static final int todoAddButton=0x7f080004;
         public static final int todoentrytext=0x7f080005;

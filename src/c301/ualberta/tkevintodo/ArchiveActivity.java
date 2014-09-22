@@ -22,6 +22,17 @@ public class ArchiveActivity extends Activity {
 		final ArrayList<Todo> list = new ArrayList<Todo>(todos);
 		final CheckBoxAdapter todoAdapter = new CheckBoxAdapter(this, list);
 		lv.setAdapter(todoAdapter);
+		
+		TodoListController.getTodoList().addListener(new Listener() {
+			@Override
+			public void update() {
+				list.clear();
+				Collection<Todo> todos = TodoListController.getTodoList()
+						.getList();
+				list.addAll(todos);
+				todoAdapter.notifyDataSetChanged();
+			}
+		});
 	}
 
 	@Override

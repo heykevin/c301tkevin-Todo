@@ -15,11 +15,11 @@ public class TodoList {
 
 	}
 
-	public Collection<Todo> getList() {
+	public ArrayList<Todo> getList() {
 		return todoList;
 	}
 	
-	public Collection<Todo> getAList(){
+	public ArrayList<Todo> getAList(){
 		ArrayList<Todo> archivedTodos = new ArrayList<Todo>();
 		for(int i =0; i< todoList.size(); i++){
 			if(todoList.get(i).isArchive()){

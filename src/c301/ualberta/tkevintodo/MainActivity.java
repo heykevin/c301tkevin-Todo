@@ -27,21 +27,17 @@ public class MainActivity extends Activity {
 
 		// On create - display the todos currently in the filed
 		lv = (ListView) findViewById(R.id.todolistview);
-
-		// when item is tapped, toggle checked properties
-		// lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-		// public void onItemClick(AdapterView<?> parent, View item, int
-		// position, long id){
-		// Todo todo = todoAdapter.getItem(position);
-		// todo.toggleChecked();
-		// TodoHolder vh= (TodoHolder) item.getTag();
-		// vh.getCheckBox().setChecked(todo.isChecked());
-		// }
-		// });
+		/*
+		 * // when item is tapped, toggle checked properties
+		 * lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+		 * public void onItemClick(AdapterView<?> parent, View item, int
+		 * position, long id) { Todo todo = todoAdapter.getItem(position);
+		 * todo.toggleChecked(); TodoHolder vh = (TodoHolder) item.getTag();
+		 * vh.getCheckBox().setChecked(todo.isChecked()); } });
+		 */
 		TodoListController.getTodoList().addTodo(cat);
 		Collection<Todo> todos = TodoListController.getTodoList().getList();
 		final ArrayList<Todo> list = new ArrayList<Todo>(todos);
-
 		final CheckBoxAdapter todoAdapter = new CheckBoxAdapter(this, list);
 		lv.setAdapter(todoAdapter);
 
@@ -56,7 +52,6 @@ public class MainActivity extends Activity {
 				todoAdapter.notifyDataSetChanged();
 			}
 		});
-
 
 	}
 
@@ -86,18 +81,6 @@ public class MainActivity extends Activity {
 		TodoListController tc = new TodoListController();
 		list = tc.getSelected();
 		tc.selectionDelete(list);
-		/*
-		for (int i = 0; i < list.size(); i++) {
-			Toast.makeText(this, list.getPos(i).getName(), Toast.LENGTH_SHORT)
-					.show();
-			TodoListController.getTodoList().deleteTodo(list.getPos(i));
-		}*/
-		// if (list.getPos(0).isChecked()) {
-		// Toast.makeText(this, list.getPos(0).getName(), Toast.LENGTH_SHORT)
-		// .show();
-		// }
-		// tc.delTodo(cat);
-		// tc.delSelected(tc.getSelected());
 
 	}
 
@@ -112,14 +95,14 @@ public class MainActivity extends Activity {
 		list = tc.getSelected();
 		tc.selectionArchive(list);
 	}
-	
-	public void archiveActivity(MenuItem menu){
+
+	public void archiveActivity(MenuItem menu) {
 		Toast.makeText(this, "The Archives", Toast.LENGTH_SHORT).show();
 		Intent intent = new Intent(MainActivity.this, ArchiveActivity.class);
 		startActivity(intent);
 
 	}
-	
+
 	public void summaryMenu(MenuItem menu) {
 		Toast.makeText(this, "Summaries of Todo", Toast.LENGTH_SHORT).show();
 	}
@@ -130,6 +113,48 @@ public class MainActivity extends Activity {
 		TodoListController tc = new TodoListController();
 		EditText textView = (EditText) findViewById(R.id.todoentrytext);
 		tc.addTodo(new Todo(textView.getText().toString()));
+
+	}
+
+	public void printAllSelected(MenuItem menu) {
+		ArrayList<Todo> list = null;
+		Toast.makeText(this, "TESTIN", Toast.LENGTH_SHORT).show();
+		TodoListController tc = new TodoListController();
+		list = TodoListController.getTodoList().getList();
+		for (int i = 0; i < list.size(); i++) {
+			if (list.get(i).isChecked()) {
+				Toast.makeText(this, list.get(i).toString(), Toast.LENGTH_SHORT)
+						.show();
+			}
+		}
+
+	}
+
+	public void printAllMenu(MenuItem menu) {
+		ArrayList<Todo> list = null;
+		Toast.makeText(this, "TESTIN", Toast.LENGTH_SHORT).show();
+		TodoListController tc = new TodoListController();
+		list = TodoListController.getTodoList().getList();
+		for (int i = 0; i < list.size(); i++) {
+
+			Toast.makeText(this, list.get(i).toString(), Toast.LENGTH_SHORT)
+					.show();
+
+		}
+
+	}
+
+	public void printMenu(MenuItem menu) {
+		ArrayList<Todo> list = null;
+		Toast.makeText(this, "TESTIN", Toast.LENGTH_SHORT).show();
+		TodoListController tc = new TodoListController();
+		list = TodoListController.getTodoList().getList();
+		for (int i = 0; i < list.size(); i++) {
+			if (list.get(i).isArchive()) {
+				Toast.makeText(this, list.get(i).toString(), Toast.LENGTH_SHORT)
+						.show();
+			}
+		}
 
 	}
 
