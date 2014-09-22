@@ -20,44 +20,7 @@ public class CheckBoxAdapter extends ArrayAdapter<Todo> {
 		super(context, R.layout.rowlayout, R.id.textView1, todoList);
 		inflated = LayoutInflater.from(context);
 	}
-/*
-	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
-	        RowViewHolder rvh = null;
-	        RowItemData rid = this.mListRowItems.get(position);
-	        if (convertView == null){
-	            convertView = LayoutInflater.from().inflate(R.layout.row_item, null);
-	            TextView tvSomeText = (TextView)convertView.findViewById(R.id.textView1);
-	            CheckBox cbSomeCheckBox = (CheckBox)convertView.findViewById(R.id.checkBox1);
-	            rvh = new RowViewHolder();
-	            rvh.mSomeTextView = tvSomeText;
-	            rvh.mSomeCheckBox = cbSomeCheckBox;
-	            convertView.setTag(rvh);
-	        }else{
-	            rvh = (RowViewHolder)convertView.getTag();
-	        }
-	        if (rvh != null){
-	            rvh.mSomeTextView.setText(rid.getSomeText());
-	            rvh.mSomeCheckBox.setChecked(rid.getCheckState());
-	            rvh.mSomeCheckBox.setOnClickListener(rid.getOnClickListener());
-	        }
-	        return convertView;
-	    }
 
-	    static class RowViewHolder{
-	        public TextView mSomeTextView;
-	        public CheckBox mSomeCheckBox;
-	    }
-	}
-		*/
-		
-		
-		
-		
-		
-		
-		
-		
 	public View getView(int position, View view, ViewGroup parent) {
 
 		
@@ -79,6 +42,7 @@ public class CheckBoxAdapter extends ArrayAdapter<Todo> {
 					CheckBox cb = (CheckBox) v;
 					Todo todo = (Todo) cb.getTag();
 					todo.setChecked(cb.isChecked());
+					
 				}
 			});
 		} else {

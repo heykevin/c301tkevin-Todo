@@ -19,7 +19,7 @@ public class Todo {
 	}
 
 	public void setArchive() {
-
+		archive = !archive;
 	}
 
 	public Boolean isArchive() {

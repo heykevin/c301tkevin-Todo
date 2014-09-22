@@ -25,6 +25,11 @@ public class TodoList {
 
 	}
 
+	public void archiveTodo(Todo newTodo) {
+		todoList.get(todoList.lastIndexOf(newTodo)).setArchive();
+
+	}
+
 	private void notifyListeners() {
 		for (Listener listener : listeners) {
 			listener.update();
@@ -49,8 +54,7 @@ public class TodoList {
 		return todoList.size();
 	}
 
-	public Todo getTodo(int position) {
-
+	public Todo getPos(int position) {
 		return todoList.get(position);
 	}
 }

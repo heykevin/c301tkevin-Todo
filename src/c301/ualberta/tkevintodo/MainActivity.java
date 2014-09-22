@@ -18,44 +18,45 @@ public class MainActivity extends Activity {
 	ListView lv;
 	TodoList todoList;
 	ArrayAdapter<Todo> todoAdapter;
+	Todo cat = new Todo("Bananas");
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
-		//On create - display the todos currently in the filed
+
+		// On create - display the todos currently in the filed
 		lv = (ListView) findViewById(R.id.todolistview);
-		/*
-		//when item is tapped, toggle checked properties
-		lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-			public void onItemClick(AdapterView<?> parent, View item, int position, long id){
-				Todo todo = todoAdapter.getItem(position);
-				todo.toggleChecked();
-				TodoHolder vh= (TodoHolder) item.getTag();
-				vh.getCheckBox().setChecked(todo.isChecked());
-			}
-		});*/
-		
+
+		// when item is tapped, toggle checked properties
+		// lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+		// public void onItemClick(AdapterView<?> parent, View item, int
+		// position, long id){
+		// Todo todo = todoAdapter.getItem(position);
+		// todo.toggleChecked();
+		// TodoHolder vh= (TodoHolder) item.getTag();
+		// vh.getCheckBox().setChecked(todo.isChecked());
+		// }
+		// });
+		TodoListController.getTodoList().addTodo(cat);
 		Collection<Todo> todos = TodoListController.getTodoList().getList();
 		final ArrayList<Todo> list = new ArrayList<Todo>(todos);
-		
-		
 
-		final ArrayAdapter<Todo> todoAdapter = new ArrayAdapter<Todo>(this, android.R.layout.simple_list_item_1  , list);
+		final CheckBoxAdapter todoAdapter = new CheckBoxAdapter(this, list);
 		lv.setAdapter(todoAdapter);
-		
-		//Create listeners so that list will update
-		TodoListController.getTodoList().addListener(new Listener(){
+
+		// Create listeners so that list will update
+		TodoListController.getTodoList().addListener(new Listener() {
 			@Override
-			public void update(){
+			public void update() {
 				list.clear();
-				Collection<Todo> todos = TodoListController.getTodoList().getList();
+				Collection<Todo> todos = TodoListController.getTodoList()
+						.getList();
 				list.addAll(todos);
 				todoAdapter.notifyDataSetChanged();
 			}
 		});
-		
-		
+
 	}
 
 	@Override
@@ -80,6 +81,23 @@ public class MainActivity extends Activity {
 
 	public void deleteTodoMenu(MenuItem menu) {
 		Toast.makeText(this, "Deleted Todo", Toast.LENGTH_SHORT).show();
+		TodoList list = null;
+		TodoListController tc = new TodoListController();
+		list = tc.getSelected();
+		tc.selectionDelete(list);
+		/*
+		for (int i = 0; i < list.size(); i++) {
+			Toast.makeText(this, list.getPos(i).getName(), Toast.LENGTH_SHORT)
+					.show();
+			TodoListController.getTodoList().deleteTodo(list.getPos(i));
+		}*/
+		// if (list.getPos(0).isChecked()) {
+		// Toast.makeText(this, list.getPos(0).getName(), Toast.LENGTH_SHORT)
+		// .show();
+		// }
+		// tc.delTodo(cat);
+		// tc.delSelected(tc.getSelected());
+
 	}
 
 	public void emailTodoMenu(MenuItem menu) {
@@ -91,7 +109,7 @@ public class MainActivity extends Activity {
 	}
 
 	public void addATodo(View v) {
-		
+
 		Toast.makeText(this, "Added Todot", Toast.LENGTH_SHORT).show();
 		TodoListController tc = new TodoListController();
 		EditText textView = (EditText) findViewById(R.id.todoentrytext);
