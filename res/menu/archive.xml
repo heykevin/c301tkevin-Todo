@@ -1,0 +1,15 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="c301.ualberta.tkevintodo.ArchiveActivity" >
+
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/action_settings"/>
+    <item android:id="@+id/deleteArchiveItem" android:title="Delete selected"></item>
+    <item android:id="@+id/unarchiveItemMenu" android:title="Unarchive selected"></item>
+    <item android:id="@+id/emailArchiveMenu" android:title="Email Selected"></item><item android:id="@+id/backArchiveMenu" android:title="Back"></item>
+    
+
+</menu>

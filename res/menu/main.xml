@@ -7,8 +7,9 @@
         android:orderInCategory="100"
         android:showAsAction="never"
         android:title="@string/action_settings"/>
-    <item android:id="@+id/deleteTodoItem" android:title="Delete" android:onClick="deleteTodoMenu"></item>
-    <item android:id="@+id/archiveTodoItem" android:title="Archive" android:onClick="archiveTodoMenu"></item>
-    <item android:id="@+id/emailTodoItem" android:title="Email" android:onClick="emailTodoMenu"></item>
+    <item android:id="@+id/deleteTodoItem" android:title="Delete Selected" android:onClick="deleteTodoMenu"></item>
+    <item android:id="@+id/archiveTodoItem" android:title="Archive Selected" android:onClick="archiveTodoMenu"></item>
+    <item android:id="@+id/emailTodoItem" android:title="Email Selected" android:onClick="emailTodoMenu"></item>
+    <item android:id="@+id/archiveActivityItem" android:title="See Archived" android:onClick="archiveActivity"></item>
 
 </menu>

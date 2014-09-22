@@ -4,20 +4,20 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
 	ListView lv;
-	TodoList todoList;
-	ArrayAdapter<Todo> todoAdapter;
 	Todo cat = new Todo("Bananas");
 
 	@Override
@@ -56,6 +56,7 @@ public class MainActivity extends Activity {
 				todoAdapter.notifyDataSetChanged();
 			}
 		});
+
 
 	}
 
@@ -106,6 +107,21 @@ public class MainActivity extends Activity {
 
 	public void archiveTodoMenu(MenuItem menu) {
 		Toast.makeText(this, "Archived Todo", Toast.LENGTH_SHORT).show();
+		TodoList list = null;
+		TodoListController tc = new TodoListController();
+		list = tc.getSelected();
+		tc.selectionArchive(list);
+	}
+	
+	public void archiveActivity(MenuItem menu){
+		Toast.makeText(this, "The Archives", Toast.LENGTH_SHORT).show();
+		Intent intent = new Intent(MainActivity.this, ArchiveActivity.class);
+		startActivity(intent);
+
+	}
+	
+	public void summaryMenu(MenuItem menu) {
+		Toast.makeText(this, "Summaries of Todo", Toast.LENGTH_SHORT).show();
 	}
 
 	public void addATodo(View v) {

@@ -18,6 +18,17 @@ public class TodoList {
 	public Collection<Todo> getList() {
 		return todoList;
 	}
+	
+	public Collection<Todo> getAList(){
+		ArrayList<Todo> archivedTodos = new ArrayList<Todo>();
+		for(int i =0; i< todoList.size(); i++){
+			if(todoList.get(i).isArchive()){
+				archivedTodos.add(todoList.get(i));
+			}
+			
+		}
+		return archivedTodos;
+	}
 
 	public void addTodo(Todo newTodo) {
 		todoList.add(newTodo);
