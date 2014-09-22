@@ -93,7 +93,15 @@ public class MainActivity extends Activity {
 		TodoList list = null;
 		TodoListController tc = new TodoListController();
 		list = tc.getSelected();
-		tc.selectionArchive(list);
+		/*
+		for (int i = 0; i < list.size(); i++) {
+
+			Toast.makeText(this, list.getPos(i).toString(), Toast.LENGTH_SHORT)
+					.show();
+
+		}
+		*/
+		tc.selectionArchive(list, this);
 	}
 
 	public void archiveActivity(MenuItem menu) {
@@ -117,15 +125,15 @@ public class MainActivity extends Activity {
 	}
 
 	public void printAllSelected(MenuItem menu) {
-		ArrayList<Todo> list = null;
+		TodoList list = null;
 		Toast.makeText(this, "TESTIN", Toast.LENGTH_SHORT).show();
 		TodoListController tc = new TodoListController();
-		list = TodoListController.getTodoList().getList();
+		list = tc.getSelected();
 		for (int i = 0; i < list.size(); i++) {
-			if (list.get(i).isChecked()) {
-				Toast.makeText(this, list.get(i).toString(), Toast.LENGTH_SHORT)
-						.show();
-			}
+
+			Toast.makeText(this, list.getPos(i).toString(), Toast.LENGTH_SHORT)
+					.show();
+
 		}
 
 	}

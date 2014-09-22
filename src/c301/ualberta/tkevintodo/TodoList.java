@@ -1,7 +1,10 @@
 package c301.ualberta.tkevintodo;
 
 import java.util.ArrayList;
-import java.util.Collection;
+
+
+import android.content.Context;
+
 
 public class TodoList {
 	protected ArrayList<Todo> todoList;
@@ -21,8 +24,8 @@ public class TodoList {
 	
 	public ArrayList<Todo> getAList(){
 		ArrayList<Todo> archivedTodos = new ArrayList<Todo>();
-		for(int i =0; i< todoList.size(); i++){
-			if(todoList.get(i).isArchive()){
+		for(int i =0; i< todoList.size(); ++i){
+			if(todoList.get(i).isChecked()){
 				archivedTodos.add(todoList.get(i));
 			}
 			
@@ -36,8 +39,9 @@ public class TodoList {
 
 	}
 
-	public void archiveTodo(Todo newTodo) {
+	public void archiveTodo(Todo newTodo, Context context) {
 		todoList.get(todoList.lastIndexOf(newTodo)).setArchive();
+		notifyListeners();
 
 	}
 

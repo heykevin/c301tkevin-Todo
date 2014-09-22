@@ -1,5 +1,8 @@
 package c301.ualberta.tkevintodo;
 
+import android.content.Context;
+
+
 public class TodoListController {
 	private static TodoList todoList = null;
 
@@ -9,7 +12,6 @@ public class TodoListController {
 		}
 		return todoList;
 	}
-	
 
 	public void addTodo(Todo todo) {
 		getTodoList().addTodo(todo);
@@ -20,9 +22,6 @@ public class TodoListController {
 
 	}
 
-	public void archiveTodo(Todo todo) {
-		getTodoList().archiveTodo(todo);
-	}
 
 	public TodoList getSelected() {
 		TodoList olist;
@@ -46,11 +45,12 @@ public class TodoListController {
 		}
 	}
 
-	public void selectionArchive(TodoList list) {
+	public void selectionArchive(TodoList list, Context context) {
 		TodoList todolist;
 		todolist = getTodoList();
+
 		for (int i = 0; i < list.size(); i++) {
-			todolist.archiveTodo(todolist.getPos(i));
+			todolist.archiveTodo(list.getPos(i), context);
 		}
 
 	}

@@ -3,8 +3,8 @@ package c301.ualberta.tkevintodo;
 //Todo class
 public class Todo {
 	protected String todoName;
-	public Boolean archive = false;
-	public Boolean check = false;
+	private Boolean archive = false;
+	private Boolean check = false;
 
 	public Todo(String todoName) {
 		this.todoName = todoName;
@@ -23,7 +23,7 @@ public class Todo {
 	}
 
 	public Boolean isArchive() {
-		return this.archive;
+		return archive;
 
 	}
 
