@@ -5,6 +5,7 @@ public class Todo {
 	protected String todoName;
 	private Boolean archive = false;
 	private Boolean check = false;
+	private Boolean select = false;
 
 	public Todo(String todoName) {
 		this.todoName = todoName;
@@ -22,7 +23,7 @@ public class Todo {
 		archive = true;
 	}
 
-	public Boolean isArchive() {
+	public boolean isArchive() {
 		return archive;
 
 	}
@@ -41,4 +42,14 @@ public class Todo {
     public void toggleChecked() {
         check = !check ;
       }
+
+	public void toggleSelect() {
+		select = !select;
+		
+	}
+
+	public boolean isSelected() {
+		// TODO Auto-generated method stub
+		return select;
+	}
 }

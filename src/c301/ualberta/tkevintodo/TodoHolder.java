@@ -6,6 +6,7 @@ import android.widget.TextView;
 public class TodoHolder {
     private CheckBox checkBox ;
     private TextView textView ;
+    private Boolean select;
     public TodoHolder() {}
     public TodoHolder( TextView textView, CheckBox checkBox ) {
       this.checkBox = checkBox ;
@@ -22,5 +23,8 @@ public class TodoHolder {
     }
     public void setTextView(TextView textView) {
       this.textView = textView;
-    }   
+    }
+	public Object getSelect() {
+		return select;
+	}   
 }

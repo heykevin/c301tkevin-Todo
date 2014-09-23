@@ -11,8 +11,8 @@
     <item android:id="@+id/archiveTodoItem" android:title="Archive Selected" android:onClick="archiveTodoMenu"></item>
     <item android:id="@+id/emailTodoItem" android:title="Email Selected" android:onClick="emailTodoMenu"></item>
     <item android:id="@+id/archiveActivityItem" android:title="See Archived" android:onClick="archiveActivity"></item>
-    <item android:id="@+id/printTestMenu" android:title="Print Archived" android:onClick="printMenu"></item>
-    <item android:id="@+id/printAllTest" android:title="Print All" android:onClick="printAllMenu"></item>
-    <item android:id="@+id/printSelectedTest" android:title="Print Selected" android:onClick="printAllSelected"></item>
+    <item android:id="@+id/printTestMenu" android:title="Print Archived" android:onClick="printMenu" android:enabled="false"></item>
+    <item android:id="@+id/printAllTest" android:title="Print All" android:onClick="printAllMenu" android:visible="false"></item>
+    <item android:id="@+id/printSelectedTest" android:title="Print Selected" android:onClick="printSelection"></item>
 
 </menu>

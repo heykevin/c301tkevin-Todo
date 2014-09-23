@@ -3,9 +3,12 @@ package c301.ualberta.tkevintodo;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import android.R.color;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.SparseBooleanArray;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,7 +21,9 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity {
 	ListView lv;
+	// test case
 	Todo cat = new Todo("Bananas");
+	CheckBoxAdapter todoAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -27,14 +32,38 @@ public class MainActivity extends Activity {
 
 		// On create - display the todos currently in the filed
 		lv = (ListView) findViewById(R.id.todolistview);
-		/*
-		 * // when item is tapped, toggle checked properties
-		 * lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-		 * public void onItemClick(AdapterView<?> parent, View item, int
-		 * position, long id) { Todo todo = todoAdapter.getItem(position);
-		 * todo.toggleChecked(); TodoHolder vh = (TodoHolder) item.getTag();
-		 * vh.getCheckBox().setChecked(todo.isChecked()); } });
-		 */
+		lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View item,
+					int position, long id) {
+				// change colour when selected, probably not the best way to do
+				// this
+				parent.setBackgroundColor(Color.TRANSPARENT);
+				Todo todo = (Todo) parent.getAdapter().getItem(position);
+				todo.toggleSelect();
+				if (todo.isSelected()) {
+					item.setBackgroundColor(Color.LTGRAY);
+
+				} else {
+					item.setBackgroundColor(Color.WHITE);
+
+				}
+				Toast.makeText(getApplicationContext(), todo.getName(),
+						Toast.LENGTH_SHORT).show();
+				TodoListController.getTodoList().addListener(new Listener() {
+					@Override
+					public void update() {
+						list.clear();
+						Collection<Todo> todos = TodoListController.getTodoList()
+								.getList();
+						list.addAll(todos);
+						todoAdapter.notifyDataSetChanged();
+					}
+				});
+			}
+
+		});
+
 		TodoListController.getTodoList().addTodo(cat);
 		Collection<Todo> todos = TodoListController.getTodoList().getList();
 		final ArrayList<Todo> list = new ArrayList<Todo>(todos);
@@ -79,7 +108,7 @@ public class MainActivity extends Activity {
 		Toast.makeText(this, "Deleted Todo", Toast.LENGTH_SHORT).show();
 		TodoList list = null;
 		TodoListController tc = new TodoListController();
-		list = tc.getSelected();
+		list = tc.getSelected2();
 		tc.selectionDelete(list);
 
 	}
@@ -92,15 +121,8 @@ public class MainActivity extends Activity {
 		Toast.makeText(this, "Archived Todo", Toast.LENGTH_SHORT).show();
 		TodoList list = null;
 		TodoListController tc = new TodoListController();
-		list = tc.getSelected();
-		/*
-		for (int i = 0; i < list.size(); i++) {
+		list = tc.getSelected2();
 
-			Toast.makeText(this, list.getPos(i).toString(), Toast.LENGTH_SHORT)
-					.show();
-
-		}
-		*/
 		tc.selectionArchive(list, this);
 	}
 
@@ -122,6 +144,19 @@ public class MainActivity extends Activity {
 		EditText textView = (EditText) findViewById(R.id.todoentrytext);
 		tc.addTodo(new Todo(textView.getText().toString()));
 
+	}
+
+	public void printSelection(MenuItem menu) {
+		TodoList list = null;
+		Toast.makeText(this, "TESTIN", Toast.LENGTH_SHORT).show();
+		TodoListController tc = new TodoListController();
+		list = tc.getSelected2();
+		for (int i = 0; i < list.size(); i++) {
+
+			Toast.makeText(this, list.getPos(i).toString(), Toast.LENGTH_SHORT)
+					.show();
+
+		}
 	}
 
 	public void printAllSelected(MenuItem menu) {

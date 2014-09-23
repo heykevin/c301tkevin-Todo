@@ -35,7 +35,18 @@ public class TodoListController {
 		return list;
 
 	}
+	public TodoList getSelected2() {
+		TodoList olist;
+		TodoList list = new TodoList();
+		olist = getTodoList();
+		for (int i = 0; i < olist.size(); i++) {
+			if (olist.getPos(i).isSelected()) {
+				list.addTodo(olist.getPos(i));
+			}
+		}
+		return list;
 
+	}
 	// deletes todos from a list
 	public void selectionDelete(TodoList list) {
 		TodoList todolist;
