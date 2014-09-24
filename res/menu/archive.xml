@@ -9,7 +9,7 @@
         android:title="@string/action_settings"/>
     <item android:id="@+id/deleteArchiveItem" android:title="Delete selected"></item>
     <item android:id="@+id/unarchiveItemMenu" android:title="Unarchive selected"></item>
-    <item android:id="@+id/emailArchiveMenu" android:title="Email Selected"></item><item android:id="@+id/backArchiveMenu" android:title="Back"></item>
+    <item android:id="@+id/emailArchiveMenu" android:title="Email Selected"></item><item android:id="@+id/backArchiveMenu" android:title="Back to Main" android:onClick="backToMain"></item>
     
 
 </menu>

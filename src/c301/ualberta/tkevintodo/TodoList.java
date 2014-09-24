@@ -25,7 +25,7 @@ public class TodoList {
 	public ArrayList<Todo> getAList(){
 		ArrayList<Todo> archivedTodos = new ArrayList<Todo>();
 		for(int i =0; i< todoList.size(); ++i){
-			if(todoList.get(i).isChecked()){
+			if(todoList.get(i).isArchive()){
 				archivedTodos.add(todoList.get(i));
 			}
 			
@@ -39,7 +39,7 @@ public class TodoList {
 
 	}
 
-	public void archiveTodo(Todo newTodo, Context context) {
+	public void archiveTodo(Todo newTodo) {
 		todoList.get(todoList.lastIndexOf(newTodo)).setArchive();
 		notifyListeners();
 

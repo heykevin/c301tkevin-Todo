@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class ArchiveActivity extends Activity {
 	ListView lv;
@@ -20,7 +22,7 @@ public class ArchiveActivity extends Activity {
 		lv = (ListView) findViewById(R.id.archiveListView);
 		Collection<Todo> todos = TodoListController.getTodoList().getAList();
 		final ArrayList<Todo> list = new ArrayList<Todo>(todos);
-		final CheckBoxAdapter todoAdapter = new CheckBoxAdapter(this, list);
+		final CheckBoxAdapter todoAdapter = new CheckBoxAdapter(this,R.layout.activity_archive , list);
 		lv.setAdapter(todoAdapter);
 		
 		TodoListController.getTodoList().addListener(new Listener() {
@@ -52,5 +54,12 @@ public class ArchiveActivity extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	public void backToMain(MenuItem menu) {
+		Toast.makeText(this, "Welcome Back", Toast.LENGTH_SHORT).show();
+		Intent intent = new Intent(ArchiveActivity.this, MainActivity.class);
+		startActivity(intent);
+
 	}
 }
