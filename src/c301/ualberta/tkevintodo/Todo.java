@@ -3,14 +3,12 @@ package c301.ualberta.tkevintodo;
 import java.io.Serializable;
 
 //Todo class. Consists of name setters and getters. Variables for archive and for selection.
-public class Todo implements Serializable{
-	
+public class Todo implements Serializable {
 
 	private static final long serialVersionUID = 49136507405809519L;
 	protected String todoName;
 	private Boolean archive = false;
 	private Boolean check = false;
-	private Boolean select = false;
 
 	public Todo(String todoName) {
 		this.todoName = todoName;
@@ -27,6 +25,7 @@ public class Todo implements Serializable{
 	public void setArchive() {
 		archive = true;
 	}
+
 	public void remArchive() {
 		archive = false;
 	}
@@ -43,30 +42,26 @@ public class Todo implements Serializable{
 	public void setChecked(boolean check) {
 		this.check = check;
 	}
-    public void toggleChecked() {
-        check = !check ;
-      }
 
-
-
-public boolean equals(Object compareTodo){
-
-	if (compareTodo != null && compareTodo.getClass() == this.getClass()){
-		return this.equals((Todo)compareTodo);
-	} else{
-		return false;
+	public void toggleChecked() {
+		check = !check;
 	}
 
-}
-	
-public boolean equals(Todo compareTodo){
-	if (compareTodo == null){
-		return false;
+	public boolean equals(Object compareTodo) {
+
+		if (compareTodo != null && compareTodo.getClass() == this.getClass()) {
+			return this.equals((Todo) compareTodo);
+		} else {
+			return false;
+		}
+
 	}
-	return getName().equals(compareTodo.getName());
-}
-	public boolean isSelected() {
-		// TODO Auto-generated method stub
-		return select;
+
+	public boolean equals(Todo compareTodo) {
+		if (compareTodo == null) {
+			return false;
+		}
+		return getName().equals(compareTodo.getName());
 	}
+
 }

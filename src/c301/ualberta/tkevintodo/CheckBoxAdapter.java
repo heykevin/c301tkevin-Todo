@@ -38,7 +38,7 @@ public class CheckBoxAdapter extends ArrayAdapter<Todo> {
 			//inflating view
 			view = inflated.inflate(R.layout.rowlayout, null);
 			//checking textviews/checkbox in layouts
-			textView = (TextView) view.findViewById(R.id.textView1);
+			textView = (TextView) view.findViewById(R.id.totalSummaryHeader);
 			checkBox = (CheckBox) view.findViewById(R.id.checkBox1);
 			view.setTag(new TodoHolder(textView, checkBox));
 			//update when clicked on - change checbox
@@ -62,7 +62,7 @@ public class CheckBoxAdapter extends ArrayAdapter<Todo> {
 
 	}
 
-	// selection functions
+	// selection functions. Boolean array to keep track of item positions from list.
 	public void removeSelection() {
 		selectedItems = new SparseBooleanArray();
 		notifyDataSetChanged();

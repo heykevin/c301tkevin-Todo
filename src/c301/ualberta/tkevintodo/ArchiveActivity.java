@@ -16,16 +16,18 @@ import android.widget.AbsListView.MultiChoiceModeListener;
 
 public class ArchiveActivity extends Activity {
 	ListView lv;
+	CheckBoxAdapter todoAdapter;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_archive);
 		TodoListManager.initManager(this);
-		//Creating a listview from the list in todolistcontroller
+		// Creating a listview from the list in todolistcontroller
 		lv = (ListView) findViewById(R.id.archiveListView);
 		Collection<Todo> todos = TodoListController.getTodoList().getAList();
 		final ArrayList<Todo> list = new ArrayList<Todo>(todos);
-		final CheckBoxAdapter todoAdapter = new CheckBoxAdapter(this,R.layout.activity_archive , list);
+		final CheckBoxAdapter todoAdapter = new CheckBoxAdapter(this,
+				R.layout.activity_archive, list);
 		lv.setAdapter(todoAdapter);
 		lv.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
 		lv.setMultiChoiceModeListener(new MultiChoiceModeListener() {
@@ -42,48 +44,16 @@ public class ArchiveActivity extends Activity {
 				SparseBooleanArray selected = todoAdapter.getSelected();
 				switch (item.getItemId()) {
 				case R.id.delete:
-					for (int i = (selected.size() - 1); i >= 0; --i) {
-						if (selected.valueAt(i)) {
-							Todo selecteditem = todoAdapter.getItem(selected.keyAt(i));
-							TodoListController.getTodoList().deleteTodo(
-									selecteditem);
-						}
-					}
+					deleteArchive(selected, todoAdapter);
 					mode.finish();
 					return true;
 
 				case R.id.unarchiveCAB:
-					for (int i = (selected.size() - 1); i >= 0; --i) {
-						if (selected.valueAt(i)) {
-							Todo selecteditem = todoAdapter.getItem(selected
-									.keyAt(i));
-							TodoListController.getTodoList().unarchiveTodo(selecteditem);
-						}
-					}
+					unarchiveArchive(selected, todoAdapter);
 					mode.finish();
 					return true;
 				case R.id.emailCAB:
-					ArrayList<Todo> emailList = new ArrayList<Todo>();
-					for (int i = (selected.size() - 1); i >= 0; --i) {
-						if (selected.valueAt(i)) {
-							Todo selecteditem = todoAdapter.getItem(selected.keyAt(i));
-							emailList.add(selecteditem);
-						}
-					}
-					Intent i = new Intent(Intent.ACTION_SEND);
-					i.setType("message/rfc822");
-					i.putExtra(Intent.EXTRA_EMAIL,
-							new String[] { "recipient@example.com" });
-					i.putExtra(Intent.EXTRA_SUBJECT, "My Todo List");
-					i.putExtra(Intent.EXTRA_TEXT, emailBuilder(emailList));
-					try {
-						startActivity(Intent.createChooser(i, "Send mail..."));
-					} catch (android.content.ActivityNotFoundException ex) {
-						Toast.makeText(ArchiveActivity.this,
-								"There are no email clients installed.",
-								Toast.LENGTH_SHORT).show();
-					}
-
+					emailArchive(selected, todoAdapter);
 					mode.finish();
 					return true;
 				default:
@@ -123,6 +93,40 @@ public class ArchiveActivity extends Activity {
 		});
 	}
 
+	// Functions for CAB. Iterate through selected values, get key, and apply
+	// intended actions.
+	protected void deleteArchive(SparseBooleanArray selected,
+			CheckBoxAdapter todoAdapter) {
+		for (int i = (selected.size() - 1); i >= 0; --i) {
+			if (selected.valueAt(i)) {
+				Todo selecteditem = todoAdapter.getItem(selected.keyAt(i));
+				TodoListController.getTodoList().deleteTodo(selecteditem);
+			}
+		}
+	}
+
+	protected void unarchiveArchive(SparseBooleanArray selected,
+			CheckBoxAdapter todoAdapter) {
+		for (int i = (selected.size() - 1); i >= 0; --i) {
+			if (selected.valueAt(i)) {
+				Todo selecteditem = todoAdapter.getItem(selected.keyAt(i));
+				TodoListController.getTodoList().unarchiveTodo(selecteditem);
+			}
+		}
+	}
+
+	protected void emailArchive(SparseBooleanArray selected,
+			CheckBoxAdapter todoAdapter) {
+		ArrayList<Todo> emailList = new ArrayList<Todo>();
+		for (int i = (selected.size() - 1); i >= 0; --i) {
+			if (selected.valueAt(i)) {
+				Todo selecteditem = todoAdapter.getItem(selected.keyAt(i));
+				emailList.add(selecteditem);
+			}
+		}
+		sendEmail(emailList);
+	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -141,6 +145,7 @@ public class ArchiveActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+
 	// creates a legible list of todos
 	public String emailBuilder(ArrayList<Todo> todos) {
 		String str = "";
@@ -150,27 +155,33 @@ public class ArchiveActivity extends Activity {
 		return str;
 	}
 
-	
-	public void backToMain(MenuItem menu) {
-		Toast.makeText(this, "Welcome Back", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(ArchiveActivity.this, MainActivity.class);
-		startActivity(intent);
+	/*
+	 * public void backToMain(MenuItem menu) { Toast.makeText(this,
+	 * "Welcome Back", Toast.LENGTH_SHORT).show(); Intent intent = new
+	 * Intent(ArchiveActivity.this, MainActivity.class); startActivity(intent);
+	 * 
+	 * }
+	 */
 
-	}
+	// email functions from main activity.
 	public void emailArchivedTodoMenu(MenuItem menu) {
-		Toast.makeText(this, "Emailing All Archived Todos", Toast.LENGTH_SHORT).show();
+		Toast.makeText(this, "Emailing All Archived Todos", Toast.LENGTH_SHORT)
+				.show();
+		sendEmail(TodoListController.getTodoList().getAList());
+	}
+
+	public void sendEmail(ArrayList<Todo> emailList) {
 		Intent i = new Intent(Intent.ACTION_SEND);
 		i.setType("message/rfc822");
-		i.putExtra(Intent.EXTRA_EMAIL,
-				new String[] { "recipient@example.com" });
+		i.putExtra(Intent.EXTRA_EMAIL, new String[] { "recipient@example.com" });
 		i.putExtra(Intent.EXTRA_SUBJECT, "My Todo List");
-		i.putExtra(Intent.EXTRA_TEXT, emailBuilder(TodoListController.getTodoList().getAList()));
+		i.putExtra(Intent.EXTRA_TEXT, emailBuilder(emailList));
 		try {
 			startActivity(Intent.createChooser(i, "Send mail..."));
 		} catch (android.content.ActivityNotFoundException ex) {
 			Toast.makeText(ArchiveActivity.this,
-					"There are no email clients installed.",
-					Toast.LENGTH_SHORT).show();
+					"There are no email clients installed.", Toast.LENGTH_SHORT)
+					.show();
 		}
 	}
 }

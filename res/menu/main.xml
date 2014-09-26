@@ -17,7 +17,7 @@
     </item>
     <item
         android:id="@+id/Summary"
-        android:title="@string/summary">
+        android:title="@string/summary" android:onClick="summaryMenu">
     </item>
 
 </menu>

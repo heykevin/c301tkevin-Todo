@@ -6,8 +6,8 @@
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:showAsAction="never"
-        android:title="@string/action_settings"/>
-    <item android:id="@+id/emailArchiveMenu" android:title="Email All Archived" android:onClick="emailArchivedTodoMenu"></item>
+        android:title="@string/action_settings" android:visible="false"/>
+    <item android:id="@+id/emailArchiveMenu" android:title="@string/emailArchiveMenu" android:onClick="emailArchivedTodoMenu"></item>
     
 
 </menu>

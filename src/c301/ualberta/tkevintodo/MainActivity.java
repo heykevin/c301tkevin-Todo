@@ -20,7 +20,7 @@ public class MainActivity extends Activity {
 	ListView lv;
 	// test case
 	// Todo cat = new Todo("Bananas");
-	CheckBoxAdapter todoAdapter;
+	CheckBoxAdapter todoAdapter = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +30,6 @@ public class MainActivity extends Activity {
 		TodoListManager.initManager(this);
 		// On create - display the todos currently in the filed
 		lv = (ListView) findViewById(R.id.todolistview);
-		// TodoListController.getTodoList().addTodo(cat);
 		Collection<Todo> todos = TodoListController.getTodoList()
 				.getNormalList();
 		final ArrayList<Todo> list = new ArrayList<Todo>(todos);
@@ -47,56 +46,22 @@ public class MainActivity extends Activity {
 				todoAdapter.toggleSelection(position);
 			}
 
+			// creating CAB. Three cases for the three buttons.
 			@Override
 			public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
 				SparseBooleanArray selected = todoAdapter.getSelected();
 				switch (item.getItemId()) {
 				case R.id.delete:
-					for (int i = (selected.size() - 1); i >= 0; --i) {
-						if (selected.valueAt(i)) {
-							Todo selecteditem = todoAdapter.getItem(selected
-									.keyAt(i));
-							TodoListController.getTodoList().deleteTodo(
-									selecteditem);
-						}
-					}
+					deleteMain(selected, todoAdapter);
 					mode.finish();
 					return true;
 
 				case R.id.archiveCAB:
-					for (int i = (selected.size() - 1); i >= 0; --i) {
-						if (selected.valueAt(i)) {
-							Todo selecteditem = todoAdapter.getItem(selected
-									.keyAt(i));
-							TodoListController.getTodoList().archiveTodo(
-									selecteditem);
-						}
-					}
+					archiveMain(selected, todoAdapter);
 					mode.finish();
 					return true;
 				case R.id.emailCAB:
-					ArrayList<Todo> emailList = new ArrayList<Todo>();
-					for (int i = (selected.size() - 1); i >= 0; --i) {
-						if (selected.valueAt(i)) {
-							Todo selecteditem = todoAdapter.getItem(selected
-									.keyAt(i));
-							emailList.add(selecteditem);
-						}
-					}
-					Intent i = new Intent(Intent.ACTION_SEND);
-					i.setType("message/rfc822");
-					i.putExtra(Intent.EXTRA_EMAIL,
-							new String[] { "recipient@example.com" });
-					i.putExtra(Intent.EXTRA_SUBJECT, "My Todo List");
-					i.putExtra(Intent.EXTRA_TEXT, emailBuilder(emailList));
-					try {
-						startActivity(Intent.createChooser(i, "Send mail..."));
-					} catch (android.content.ActivityNotFoundException ex) {
-						Toast.makeText(MainActivity.this,
-								"There are no email clients installed.",
-								Toast.LENGTH_SHORT).show();
-					}
-
+					emailMain(selected, todoAdapter);
 					mode.finish();
 					return true;
 				default:
@@ -139,7 +104,55 @@ public class MainActivity extends Activity {
 
 	}
 
+	// Functions for CAB. Iterate through selected values, get key, and apply
+	// intended actions.
+	protected void deleteMain(SparseBooleanArray selected,
+			CheckBoxAdapter todoAdapter) {
+		for (int i = (selected.size() - 1); i >= 0; --i) {
+			if (selected.valueAt(i)) {
+				Todo selecteditem = todoAdapter.getItem(selected.keyAt(i));
+				TodoListController.getTodoList().deleteTodo(selecteditem);
+			}
+		}
+	}
 
+	protected void archiveMain(SparseBooleanArray selected,
+			CheckBoxAdapter todoAdapter) {
+		for (int i = (selected.size() - 1); i >= 0; --i) {
+			if (selected.valueAt(i)) {
+				Todo selecteditem = todoAdapter.getItem(selected.keyAt(i));
+				TodoListController.getTodoList().archiveTodo(selecteditem);
+			}
+		}
+	}
+
+	protected void emailMain(SparseBooleanArray selected,
+			CheckBoxAdapter todoAdapter) {
+		ArrayList<Todo> emailList = new ArrayList<Todo>();
+		for (int i = (selected.size() - 1); i >= 0; --i) {
+			if (selected.valueAt(i)) {
+				Todo selecteditem = todoAdapter.getItem(selected.keyAt(i));
+				emailList.add(selecteditem);
+			}
+		}
+		sendEmail(emailList);
+	}
+
+	// Email intent.
+	public void sendEmail(ArrayList<Todo> emailList) {
+		Intent i = new Intent(Intent.ACTION_SEND);
+		i.setType("message/rfc822");
+		i.putExtra(Intent.EXTRA_EMAIL, new String[] { "recipient@example.com" });
+		i.putExtra(Intent.EXTRA_SUBJECT, "My Todo List");
+		i.putExtra(Intent.EXTRA_TEXT, emailBuilder(emailList));
+		try {
+			startActivity(Intent.createChooser(i, "Send mail..."));
+		} catch (android.content.ActivityNotFoundException ex) {
+			Toast.makeText(MainActivity.this,
+					"There are no email clients installed.", Toast.LENGTH_SHORT)
+					.show();
+		}
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -158,44 +171,22 @@ public class MainActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
-	//email all todos
+
+	// email all todos
 	public void emailAllTodoMenu(MenuItem menu) {
 		Toast.makeText(this, "Emailing All Todos", Toast.LENGTH_SHORT).show();
-		Intent i = new Intent(Intent.ACTION_SEND);
-		i.setType("message/rfc822");
-		i.putExtra(Intent.EXTRA_EMAIL,
-				new String[] { "recipient@example.com" });
-		i.putExtra(Intent.EXTRA_SUBJECT, "My Todo List");
-		i.putExtra(Intent.EXTRA_TEXT, emailBuilder(TodoListController.getTodoList().getList()));
-		try {
-			startActivity(Intent.createChooser(i, "Send mail..."));
-		} catch (android.content.ActivityNotFoundException ex) {
-			Toast.makeText(MainActivity.this,
-					"There are no email clients installed.",
-					Toast.LENGTH_SHORT).show();
-		}
+		sendEmail(TodoListController.getTodoList().getList());
+
 	}
-	
-	//Email all unarchived todos
-	
+
+	// Email all unarchived todos
+
 	public void emailNormalTodoMenu(MenuItem menu) {
 		Toast.makeText(this, "Emailing All Todos", Toast.LENGTH_SHORT).show();
-		Intent i = new Intent(Intent.ACTION_SEND);
-		i.setType("message/rfc822");
-		i.putExtra(Intent.EXTRA_EMAIL,
-				new String[] { "recipient@example.com" });
-		i.putExtra(Intent.EXTRA_SUBJECT, "My Todo List");
-		i.putExtra(Intent.EXTRA_TEXT, emailBuilder(TodoListController.getTodoList().getNormalList()));
-		try {
-			startActivity(Intent.createChooser(i, "Send mail..."));
-		} catch (android.content.ActivityNotFoundException ex) {
-			Toast.makeText(MainActivity.this,
-					"There are no email clients installed.",
-					Toast.LENGTH_SHORT).show();
-		}
+		sendEmail(TodoListController.getTodoList().getNormalList());
+
 	}
-	
+
 	// creates a legible list of todos
 	public String emailBuilder(ArrayList<Todo> todos) {
 		String str = "";
@@ -205,26 +196,42 @@ public class MainActivity extends Activity {
 		return str;
 	}
 
-	//Menu items 
+	// Menu items
 	public void archiveActivity(MenuItem menu) {
 		Toast.makeText(this, "The Archives", Toast.LENGTH_SHORT).show();
 		Intent intent = new Intent(MainActivity.this, ArchiveActivity.class);
-		
+
 		startActivity(intent);
 
 	}
 
 	public void summaryMenu(MenuItem menu) {
-		Toast.makeText(this, "Summaries of Todo", Toast.LENGTH_SHORT).show();
+
+		Intent intent = new Intent(MainActivity.this, SummaryActivity.class);
+		/* Can';t get Bundle working
+		Bundle mBundle = new Bundle();
+		mBundle.putSerializable("sum", mySummary);
+		intent.putExtra("bSum", mBundle);*/
+		startActivity(intent);
+		
+		
 	}
 
 	public void addATodo(View v) {
 
-		Toast.makeText(this, "Added Todo", Toast.LENGTH_SHORT).show();
+		Toast.makeText(this, "Adding Todo", Toast.LENGTH_SHORT).show();
 		TodoListController tc = new TodoListController();
 		EditText textView = (EditText) findViewById(R.id.todoentrytext);
-		tc.addTodo(new Todo(textView.getText().toString()));
+		Todo newTodo = new Todo(textView.getText().toString());
+		if (!TodoListController.getTodoList().contains(newTodo)) {
+			tc.addTodo(newTodo);
+		} else {
+			Toast.makeText(this, "Error: Duplicate Todo!", Toast.LENGTH_SHORT).show();
+
+		}
 
 	}
+
+
 
 }

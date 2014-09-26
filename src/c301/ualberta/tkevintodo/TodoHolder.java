@@ -1,5 +1,5 @@
 package c301.ualberta.tkevintodo;
-
+//holds format of row
 import android.widget.CheckBox;
 import android.widget.TextView;
 

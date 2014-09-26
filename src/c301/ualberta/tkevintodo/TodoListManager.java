@@ -10,14 +10,15 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.util.Base64;
-//Todolist manager that allows storage of the todolist. Class style was followed by Abram Hindle's student picker tutorials
+//Todolist manager that allows storage of the todolist. Class was built in the style 
+//as was followed by Abram Hindle's student picker tutorials
 public class TodoListManager {
 	// name of file, name of object
 	static final String prefFile = "TodoList";
 	static final String tlKey = "todoList";
 
 	Context context;
-
+//create manager singleton
 	static private TodoListManager todoListManager = null;
 
 	public TodoListManager(Context context) {
