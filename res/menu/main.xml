@@ -3,13 +3,21 @@
     tools:context="c301.ualberta.tkevintodo.MainActivity" >
 
     <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:showAsAction="never"
-        android:title="@string/action_settings"/>
-    <item android:id="@+id/deleteTodoItem" android:title="Delete Selected"></item>
-    <item android:id="@+id/archiveTodoItem" android:title="Archive Selected"></item>
-    
-    <item android:id="@+id/archiveActivityItem" android:title="See Archived" android:onClick="archiveActivity"></item><item android:id="@+id/emailTodoItem" android:title="Email Selected"></item>
+        android:id="@+id/archiveActivityItem"
+        android:onClick="archiveActivity"
+        android:title="@string/archiveactivity">
+    </item>
+    <item
+        android:id="@+id/emailTodoItem"
+        android:title="@string/emailA">
+    </item>
+    <item
+        android:id="@+id/emailNormalTodo"
+        android:title="@string/emailN">
+    </item>
+    <item
+        android:id="@+id/Summary"
+        android:title="@string/summary">
+    </item>
 
 </menu>
