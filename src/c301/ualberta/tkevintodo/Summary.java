@@ -2,7 +2,7 @@ package c301.ualberta.tkevintodo;
 
 //Summary class containing info on counts.
 import java.io.Serializable;
-
+//serializable summary class for bundling.
 public class Summary implements Serializable{
 
 	private static final long serialVersionUID = 5848686107882970627L;

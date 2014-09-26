@@ -10,7 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.TextView;
 //Custom adapter resoponsible for changing the default view in listview in main. Also responsible for 
-//selection in the contextual action bar
+//selection in the contextual action bar. Custom Adapter was adapted from SurvivingWithAndroid's customadapter turotial.
 public class CheckBoxAdapter extends ArrayAdapter<Todo> {
 
 	private LayoutInflater inflated;

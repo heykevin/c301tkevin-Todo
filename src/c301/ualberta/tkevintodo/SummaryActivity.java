@@ -1,5 +1,5 @@
 package c301.ualberta.tkevintodo;
-
+//summary activity displaying stats.
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.TextView;

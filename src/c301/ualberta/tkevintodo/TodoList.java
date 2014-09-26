@@ -79,7 +79,6 @@ public class TodoList implements Serializable {
 	public void deleteTodo(Todo delTodo) {
 		todoList.remove(delTodo);
 		notifyListeners();
-
 	}
 
 	public int size() {

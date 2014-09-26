@@ -1,5 +1,5 @@
 package c301.ualberta.tkevintodo;
-
+//MainActivty. Calls upon a CAB as adapted from Vogella's tutorial. Used to select and delete/archive/email the selected items
 import java.util.ArrayList;
 import java.util.Collection;
 
