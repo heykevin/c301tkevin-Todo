@@ -1,14 +1,13 @@
 package c301.ualberta.tkevintodo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+//Todlist class that holds todolist. Includes functions for retireving list, and modifying list. Serializable for storage.
+public class TodoList implements Serializable {
 
-
-import android.content.Context;
-
-
-public class TodoList {
-	protected ArrayList<Todo> todoList;
-	protected ArrayList<Listener> listeners;
+	private static final long serialVersionUID = -3275705092903792284L;
+	protected ArrayList<Todo> todoList = null;
+	protected transient ArrayList<Listener> listeners = null;
 
 	// Basic addition/removal of list of todos and size
 	// Add bool indicating archive status?
@@ -18,17 +17,35 @@ public class TodoList {
 
 	}
 
+	private ArrayList<Listener> getListeners() {
+		if (listeners == null) {
+			listeners = new ArrayList<Listener>();
+		}
+		return listeners;
+	}
+
 	public ArrayList<Todo> getList() {
 		return todoList;
 	}
+	public ArrayList<Todo> getNormalList() {
+		ArrayList<Todo> normalTodos = new ArrayList<Todo>();
+		for (int i = 0; i < todoList.size(); ++i) {
+			if (!todoList.get(i).isArchive()) {
+				normalTodos.add(todoList.get(i));
+			}
+
+		}
+		return normalTodos;
+	}
+
 	
-	public ArrayList<Todo> getAList(){
+	public ArrayList<Todo> getAList() {
 		ArrayList<Todo> archivedTodos = new ArrayList<Todo>();
-		for(int i =0; i< todoList.size(); ++i){
-			if(todoList.get(i).isArchive()){
+		for (int i = 0; i < todoList.size(); ++i) {
+			if (todoList.get(i).isArchive()) {
 				archivedTodos.add(todoList.get(i));
 			}
-			
+
 		}
 		return archivedTodos;
 	}
@@ -46,17 +63,17 @@ public class TodoList {
 	}
 
 	private void notifyListeners() {
-		for (Listener listener : listeners) {
+		for (Listener listener : getListeners()) {
 			listener.update();
 		}
 	}
 
 	public void addListener(Listener L) {
-		listeners.add(L);
+		getListeners().add(L);
 	}
 
 	public void removeListener(Listener l) {
-		listeners.remove(l);
+		getListeners().remove(l);
 	}
 
 	public void deleteTodo(Todo delTodo) {
@@ -72,4 +89,9 @@ public class TodoList {
 	public Todo getPos(int position) {
 		return todoList.get(position);
 	}
+
+	public boolean contains(Todo testTodo) {
+		return todoList.contains(testTodo);
+	}
+
 }
