@@ -1,5 +1,7 @@
 Readme
 ==============
+Kevin Tang
+tkevin-Todo
 CMPUT 301 Assignment 1 - Todo List
 The assignment involves creating an android application in java used for storing and archiving of todo items on a todo list. Items may be checked off, emailed, and deleted.
 
