@@ -131,7 +131,7 @@ public class MainActivity extends Activity {
 			public void update() {
 				list.clear();
 				Collection<Todo> todos = TodoListController.getTodoList()
-						.getList();
+						.getNormalList();
 				list.addAll(todos);
 				todoAdapter.notifyDataSetChanged();
 			}
@@ -139,22 +139,7 @@ public class MainActivity extends Activity {
 
 	}
 
-	/*
-	 * @Override public void onResume(){ //I unno how this works
-	 * super.onResume(); final ArrayList<Todo> list =
-	 * TodoListController.getTodoList().getList(); todoAdapter = new
-	 * CheckBoxAdapter(this,R.layout.activity_main, list); lv = (ListView)
-	 * findViewById(R.id.todolistview); lv.setAdapter(todoAdapter);
-	 * TodoListController.getTodoList().addListener(new Listener() {
-	 * 
-	 * @Override public void update() { list.clear(); Collection<Todo> todos =
-	 * TodoListController.getTodoList() .getList(); list.addAll(todos);
-	 * todoAdapter.notifyDataSetChanged(); } });
-	 * 
-	 * 
-	 * 
-	 * }
-	 */
+
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -220,9 +205,11 @@ public class MainActivity extends Activity {
 		return str;
 	}
 
+	//Menu items 
 	public void archiveActivity(MenuItem menu) {
 		Toast.makeText(this, "The Archives", Toast.LENGTH_SHORT).show();
 		Intent intent = new Intent(MainActivity.this, ArchiveActivity.class);
+		
 		startActivity(intent);
 
 	}

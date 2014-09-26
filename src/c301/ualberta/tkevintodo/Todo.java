@@ -27,6 +27,9 @@ public class Todo implements Serializable{
 	public void setArchive() {
 		archive = true;
 	}
+	public void remArchive() {
+		archive = false;
+	}
 
 	public boolean isArchive() {
 		return archive;

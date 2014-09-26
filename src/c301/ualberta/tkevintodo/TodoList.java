@@ -94,4 +94,10 @@ public class TodoList implements Serializable {
 		return todoList.contains(testTodo);
 	}
 
+	public void unarchiveTodo(Todo selected) {
+		todoList.get(todoList.lastIndexOf(selected)).remArchive();
+		notifyListeners();
+		
+	}
+
 }

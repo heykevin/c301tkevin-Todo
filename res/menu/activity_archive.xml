@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"><item
         android:id="@+id/delete"
         android:title="@string/deleteCAB"/>
-    <item android:id="@+id/archiveCAB" android:title="@string/archiveCAB"></item>
+    <item android:id="@+id/unarchiveCAB" android:title="@string/unarchiveCAB"></item>
     <item android:id="@+id/emailCAB" android:title="@string/emailCAB"></item>
     
 </menu>

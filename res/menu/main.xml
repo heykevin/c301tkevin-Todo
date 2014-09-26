@@ -9,11 +9,11 @@
     </item>
     <item
         android:id="@+id/emailTodoItem"
-        android:title="@string/emailA">
+        android:title="@string/emailA" android:onClick="emailAllTodoMenu">
     </item>
     <item
         android:id="@+id/emailNormalTodo"
-        android:title="@string/emailN">
+        android:title="@string/emailN" android:onClick="emailNormalTodoMenu">
     </item>
     <item
         android:id="@+id/Summary"
