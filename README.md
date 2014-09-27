@@ -21,5 +21,5 @@ References
 
 1. Abram Hindle's Student Picker tutorials and the code within was adapted for learning basic Android OO implementation and for saving data via shared preferences and serialization.
 2. Vogella's tutorials were adapted for use of the contextual action bar for the listview (http://www.vogella.com/tutorials/AndroidListView/article.html) (http://www.vogella.com/code/de.vogella.android.listactivity/src/de/vogella/android/listactivity/MyListActivityActionbar.html),
-3. Custom Adapter was stylizied after SurvivingWithAndroid's planet custom listview tutorial (https://github.com/survivingwithandroid/Surviving-with-android/tree/master/SimpleList).
+3. Custom Adapter was stylized after SurvivingWithAndroid's planet custom listview tutorial (https://github.com/survivingwithandroid/Surviving-with-android/tree/master/SimpleList).
 
