@@ -43,12 +43,14 @@ public class MainActivity extends Activity {
 			@Override
 			public void onItemCheckedStateChanged(ActionMode mode,
 					int position, long id, boolean bool) {
+						//toggling items that are selected
 				todoAdapter.toggleSelection(position);
 			}
 
 			// creating CAB. Three cases for the three buttons.
 			@Override
 			public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+				//acquiring list of selected items.
 				SparseBooleanArray selected = todoAdapter.getSelected();
 				switch (item.getItemId()) {
 				case R.id.delete:
