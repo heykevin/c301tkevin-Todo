@@ -70,10 +70,13 @@ public class CheckBoxAdapter extends ArrayAdapter<Todo> {
 	}
 
 	public void toggleSelection(int position) {
+		//calls toggle on selected position dependong on if item is already selected
+		//if not there, sends true else false
 		selectView(position, !selectedItems.get(position));
 	}
 
 	public void selectView(int position, boolean value) {
+		//if already selected - put into selection list, else remove
 		if (value)
 			selectedItems.put(position, value);
 		else
